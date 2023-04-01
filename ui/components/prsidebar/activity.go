@@ -23,6 +23,10 @@ func (m *Model) renderActivity() string {
 
 	var activity []RenderedActivity
 	for _, comment := range m.pr.Data.Comments.Nodes {
+		// CHANGED(canadaduane) ignore bots
+		if comment.Author.Login == "vercel" || comment.Author.Login == "linear" || comment.Author.Login == "netlify" {
+			continue
+		}
 		renderedComment, err := m.renderComment(comment, markdownRenderer)
 		if err != nil {
 			continue
